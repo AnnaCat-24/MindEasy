@@ -1,6 +1,7 @@
 """Flask entry point for the MindEasy wellness-support prototype."""
 
 import logging
+import os
 import re
 
 from flask import Flask, jsonify, render_template, request, session
@@ -10,7 +11,8 @@ from src.companion import CompanionError, get_companion_response
 from src.response_engine import get_supportive_content
 
 app = Flask(__name__, static_folder="public", static_url_path="/public")
-app.config["SECRET_KEY"] = "mindeasy-local-session-key"
+"""app.config["SECRET_KEY"] = "mindeasy-local-session-key""""
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-only-secret")
 logging.basicConfig(level=logging.INFO)
 
 SAFETY_PATTERN = re.compile(r"\b(kill myself|hurt myself|harm myself|end my life|suicid(?:e|al)|self harm|don't want to live|do not want to live)\b", re.I)
