@@ -11,7 +11,6 @@ from src.companion import CompanionError, get_companion_response
 from src.response_engine import get_supportive_content
 
 app = Flask(__name__, static_folder="public", static_url_path="/public")
-"""app.config["SECRET_KEY"] = "mindeasy-local-session-key""""
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-only-secret")
 logging.basicConfig(level=logging.INFO)
 
