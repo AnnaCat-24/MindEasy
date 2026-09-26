@@ -1,0 +1,10 @@
+Flask
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+openai
+python-dotenv
+transformers
+torch

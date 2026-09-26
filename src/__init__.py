@@ -1,0 +1,1 @@
+"""MindEasy application modules."""

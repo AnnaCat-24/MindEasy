@@ -1,0 +1,29 @@
+MindEasy sentiment evaluation
+==============================
+Dataset size: 120
+Class distribution: {'positive': 40, 'neutral': 40, 'negative': 40}
+Train/test size: 96/24
+Selected model: multinomial_naive_bayes
+
+Candidate model scores:
+logistic_regression: accuracy=0.708, precision=0.768, recall=0.708, f1=0.703
+multinomial_naive_bayes: accuracy=0.750, precision=0.759, recall=0.750, f1=0.748
+linear_svm: accuracy=0.708, precision=0.728, recall=0.708, f1=0.710
+
+Classification report:
+              precision    recall  f1-score   support
+
+    negative       0.67      0.75      0.71         8
+     neutral       0.83      0.62      0.71         8
+    positive       0.78      0.88      0.82         8
+
+    accuracy                           0.75        24
+   macro avg       0.76      0.75      0.75        24
+weighted avg       0.76      0.75      0.75        24
+
+Confusion matrix labels: positive, neutral, negative
+[[7 0 1]
+ [1 5 2]
+ [1 1 6]]
+
+Manual error analysis: short, sarcastic, mixed, and context-dependent messages can be difficult for TF-IDF models. Results are sentiment labels, not clinical assessments.

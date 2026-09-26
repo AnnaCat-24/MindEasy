@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>MindEasy | Pause and reflect</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<main class="shell">
+		<nav class="topbar"><a class="brand" href="/" aria-label="MindEasy home"><span class="brand-mark">m</span><span>MindEasy</span></a><span class="nav-note">A small space to check in</span></nav>
+		<section class="intro">
+			<p class="eyebrow">A gentle moment of reflection</p>
+			<h1>Make room for<br><em>what you feel.</em></h1>
+			<p class="intro-copy">Put your thoughts into words. MindEasy looks at the tone of your message and offers a supportive pause in return.</p>
+		</section>
+		<section class="workspace" aria-label="Sentiment reflection tool">
+			<div class="input-panel">
+				<div class="panel-heading"><div><p class="eyebrow">Your check-in</p><h2>How are you feeling today?</h2></div><span class="step">01 / 02</span></div>
+				<label class="sr-only" for="thoughts">Tell MindEasy what is on your mind</label>
+				<textarea id="thoughts" maxlength="2000" placeholder="Tell me what's on your mind..."></textarea>
+				<div class="input-footer"><span id="counter">0 / 2,000</span><button id="submit" type="button"><span>Understand my mood</span><span class="arrow">&#8594;</span></button></div>
+				<p id="error" class="error" role="alert" hidden></p><p id="loading" class="loading" hidden>Reflecting on your message<span class="dots">...</span></p>
+			</div>
+			<div id="result" class="result-panel" hidden>
+				<div class="panel-heading"><div><p class="eyebrow">Your reflection</p><h2>Expressed sentiment</h2></div><div class="result-actions"><button id="reset-chat" class="new-checkin" type="button">New check-in</button><span class="step">02 / 02</span></div></div>
+				<div id="sentiment" class="sentiment"><span class="sentiment-dot"></span><span></span></div>
+				<p class="tone-note">This is an estimate of the emotional tone expressed in your text, not a clinical assessment.</p>
+				<p id="acknowledgement" class="acknowledgement"></p><p id="message" class="result-message"></p><p id="suggestion" class="suggestion"></p><p id="follow-up" class="follow-up"></p>
+				<div class="resources"><article><span class="resource-icon">&#10022;</span><div><p class="resource-label">A thought to keep</p><p id="quote"></p></div></article><article id="breathing-card"><span class="resource-icon">&#9711;</span><div><p class="resource-label" id="exercise-title">Reset your pace</p><p id="exercise-instructions">Try a slow inhale, a gentle hold, and a longer exhale.</p><div class="breath"><span></span></div></div></article><div id="music-list"></div></div>
+				<p id="safety" class="safety" hidden></p>
+			</div>
+		</section>
+		<footer><p><strong>MindEasy</strong> is an educational wellness-support prototype. It analyzes language patterns and offers general supportive resources. It is not a medical device, therapist, diagnostic system, or crisis service. Sentiment predictions are not a clinical assessment.</p></footer>
+	</main>
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
