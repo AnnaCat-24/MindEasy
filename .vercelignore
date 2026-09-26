@@ -1,0 +1,10 @@
+.venv/
+data/
+models/
+evaluation/
+__pycache__/
+*.bin
+*.safetensors
+*.pt
+*.onnx
+*.pkl
