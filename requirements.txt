@@ -1,11 +1,5 @@
 Flask
-pandas
-numpy
-scikit-learn
-joblib
-matplotlib
+huggingface_hub
 openai
 python-dotenv
-transformers
-torch
-gunicorn
+
