@@ -158,3 +158,9 @@ The Hugging Face model is identified by its model name in `src/predict.py` and i
 - **The app reports missing Python packages:** Activate the intended virtual environment and rerun `python -m pip install -r requirements.txt`.
 - **OpenAI replies are unavailable:** Check the private `.env` configuration and account access. The application should still return a local fallback reply if the provider request fails.
 - **Port 5000 is already in use:** Stop the other local process using that port, then run `python app.py` again.
+
+
+
+URL : 
+https://mind-easy-ougbp1lo7-annacat12123-6909s-projects.vercel.app/
+https://mindeasy.onrender.com/
