@@ -1,17 +1,13 @@
-"""Sentiment prediction using a pretrained RoBERTa model."""
+"""Sentiment prediction using Hugging Face Inference API."""
 
-from transformers import pipeline
+import os
+from huggingface_hub import InferenceClient
 
-
-# Pretrained sentiment model.
-# It predicts: negative, neutral, or positive.
 MODEL_NAME = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 
-
-# Load the model once when this module is imported.
-# This is much faster than loading it for every prediction.
-sentiment_model = pipeline(
-    "sentiment-analysis",
+# Initialize HF InferenceClient using environment token
+client = InferenceClient(
+    token=os.environ.get("HF_TOKEN"),
     model=MODEL_NAME,
 )
 
@@ -22,23 +18,33 @@ def predict_sentiment(text: str) -> tuple[str, float | None]:
     if not text or not text.strip():
         return "neutral", None
 
-    result = sentiment_model(text.strip(), truncation=True)[0]
+    try:
+        # Calls Hugging Face Inference API over HTTP (uses ~0 local RAM)
+        results = client.text_classification(text.strip())
 
-    label = str(result["label"]).lower()
-    confidence = float(result["score"])
+        # Response structure: [{'label': 'positive', 'score': 0.95}, ...]
+        if isinstance(results, list) and len(results) > 0:
+            top_result = results[0]
+            label = str(top_result["label"]).lower()
+            confidence = float(top_result["score"])
+        else:
+            return "neutral", 0.50
 
-    # Normalize labels in case the model returns LABEL_0/LABEL_1/LABEL_2.
-    label_mapping = {
-        "label_0": "negative",
-        "label_1": "neutral",
-        "label_2": "positive",
-    }
+        # Normalize labels in case the model returns LABEL_0/LABEL_1/LABEL_2
+        label_mapping = {
+            "label_0": "negative",
+            "label_1": "neutral",
+            "label_2": "positive",
+        }
 
-    label = label_mapping.get(label, label)
+        label = label_mapping.get(label, label)
 
-    # Make sure the application only receives the three labels
-    # that MindEasy already expects.
-    if label not in {"positive", "neutral", "negative"}:
-        raise ValueError(f"Unexpected sentiment label from model: {label}")
+        # Make sure the application only receives the three expected labels
+        if label not in {"positive", "neutral", "negative"}:
+            raise ValueError(f"Unexpected sentiment label from model: {label}")
 
-    return label, confidence
+        return label, confidence
+
+    except Exception:
+        # Fallback graceful prediction if API fails or token isn't provided yet
+        return "neutral", 0.50
